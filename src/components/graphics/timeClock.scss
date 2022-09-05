@@ -1,0 +1,26 @@
+@use '../../styles/partials/Colours' as *;
+@use '../../styles/partials/Breakpoints' as *;
+@use '../../styles/partials/Mixins' as *;
+@use '../../styles/partials/Fonts' as *;
+
+.time {
+    display: flex;
+    align-items: center;
+    border: solid 3px $second-border;
+    border-radius: 10%;
+    background-color: $third-background;
+    box-shadow: 3px 3px 10px $second-border;
+    width: fit-content;
+
+
+    &__info {
+        font-family: Digital;
+        font-size: 1.5rem;
+        color: darkblue;
+        background-color: lightblue;
+        border: solid 2px $second-border;
+        border-radius: 10%;
+        padding: 0.25rem;
+        margin: 0.25rem;
+    }
+}

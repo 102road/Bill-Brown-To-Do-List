@@ -1,0 +1,56 @@
+@use '../../styles/partials/Breakpoints' as *;
+@use '../../styles/partials/Colours' as *;
+@use '../../styles/partials/Mixins' as *;
+
+.list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.list__item:hover {
+    animation: scale-slow 1s ease forwards,
+        slide-in 1s ease forwards;
+}
+
+.arrow {
+    height: 5rem;
+    width: 7rem;
+    margin: 2rem;
+    cursor: pointer;
+    animation: slide-in 1s ease forwards;
+    &--mobile{
+        @extend .icon;
+    }
+    &--tablet {
+        @extend .icon;
+        display: none;
+    }
+}
+
+
+
+
+
+@include tablet {
+    .list {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .icon {
+        &--mobile {
+            display: none;
+        }
+
+        &--tablet {
+            display: block;
+        }
+    }
+
+
+
+}

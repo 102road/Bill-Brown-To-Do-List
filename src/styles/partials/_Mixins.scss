@@ -1,0 +1,38 @@
+@use './Colours.scss' as*;
+
+@mixin flexDisplayColumnCenter {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin flexSpaceBetween {
+    display: flex;
+    justify-content: space-between;
+}
+
+@mixin button {
+    background-color: $first-text;
+    color: $first-border;
+    font-size: 1rem;
+    border-radius: 4rem;
+    width: 6rem;
+    height: 2rem;
+    margin: 0 1rem;
+    cursor: pointer;
+}
+
+@mixin itemDimensions {
+    width: 18rem;
+    height: 30rem;
+    border-radius: 1rem;
+    box-shadow: 3px 3px 5px $first-text;
+    background-color: $second-background;
+}
+
+@mixin completeGraphic {
+    opacity: 100;
+    border: solid 2px $complete-green;
+    border-radius: 1rem;
+}

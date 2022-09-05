@@ -1,0 +1,101 @@
+@use '../../styles/partials/Colours' as *;
+@use '../../styles/partials/Breakpoints' as *;
+@use '../../styles/partials/Mixins' as *;
+@use '../../styles/partials/Fonts' as *;
+
+.information {
+    @include flexSpaceBetween;
+    flex-direction: column;
+    border-bottom: solid 1px black;
+    padding: 1rem;
+    width: max(25%, 100%);
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+
+    &__container {
+        @include flexSpaceBetween;
+        flex-direction: row;
+    }
+
+    &__main {
+        margin: 1rem 0;
+    }
+
+    &__icons {
+        @include flexSpaceBetween;
+    }
+}
+
+.footer {
+    &__details {
+        @include flexSpaceBetween;
+        justify-content: space-around;
+        margin: 1rem 0;
+    }
+
+    &__icons {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    &__last {
+        padding: 1rem;
+    }
+
+
+}
+
+
+@include tablet {
+    .information {
+        flex-direction: row;
+        padding: 1rem 0;
+    }
+
+    .header {
+        width: 50%;
+        justify-content: space-between;
+        padding: 1rem;
+
+        &__title {
+            font-size: 2.5rem;
+        }
+
+        &__description {
+            font-size: 1.5rem;
+        }
+
+        &__icons {
+            width: 20%;
+        }
+    }
+
+    .footer {
+        width: 50%;
+        padding: 1rem;
+
+        &__container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+
+        &__icons {
+            flex-direction: column;
+        }
+
+        &__last {
+            padding: 1rem 3rem;
+        }
+
+    }
+}

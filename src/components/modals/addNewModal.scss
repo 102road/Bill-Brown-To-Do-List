@@ -1,0 +1,65 @@
+@use '../../styles/partials/Breakpoints' as *;
+@use '../../styles/partials/Colours' as *;
+@use '../../styles/partials/Mixins' as *;
+
+.new {
+    &__form {
+        margin: 1rem;
+        @include itemDimensions;
+        @include flexDisplayColumnCenter;
+        justify-content: flex-start;
+        background-color: $third-background;
+        animation: fade-in 1s ease;
+    }
+    &__header{
+        margin: 0.75rem 0;
+    }
+    &__container{
+        display: flex;
+        flex-direction: column;
+    }
+    &__button{
+        justify-self: flex-end;
+        align-self: flex-end;
+        margin-top: 1rem;
+        cursor: pointer;
+    }
+
+    &__input {
+        width: 100%;
+
+        &--description {
+            height: 5rem;
+        }
+    }
+
+    &__buttons {
+        margin: 1.5rem 0;
+    }
+}
+
+.message {
+    margin: 1rem 0;
+    color: $first-warning;
+}
+
+@include tablet {
+    .new {
+        &__form {
+            animation: fade-in 1s ease;
+            position: fixed;
+            top: 5%;
+            bottom: 0;
+            right: 0;
+            z-index: 2;
+            position: relative;
+        }
+    }
+
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+}

@@ -1,0 +1,52 @@
+@use '../../styles/partials/Colours' as *;
+@use '../../styles/partials/Breakpoints' as *;
+@use '../../styles/partials/Mixins' as *;
+
+// Styling
+
+.incomplete {
+    width: fit-content;
+    height: 2.4rem;
+    border: solid 4px $second-border;
+    border-radius: 0.5rem;
+    cursor: pointer;
+
+    &__icon {
+        height: 100%;
+        border: solid 1px $second-border;
+        opacity: 0;
+    }
+}
+
+.complete {
+    @extend .incomplete;
+    border: solid 2px $complete-green;
+    border-radius: 1rem;
+
+    &__icon {
+        @extend .incomplete__icon;
+        @include completeGraphic;
+    }
+}
+
+//Tablet dimensions
+@include desktop {
+    .title {
+        font-size: 2rem;
+    }
+}
+
+// Animations
+.incomplete:hover .incomplete__icon {
+    animation: show-icon 0.25s ease forwards;
+}
+
+.incomplete:hover {
+    animation: show-icon 0.25s ease forwards;
+}
+
+@keyframes show-icon {
+    100% {
+        @include completeGraphic;
+    }
+}

@@ -1,0 +1,10 @@
+@use '../../styles/partials/Breakpoints' as *;
+@use '../../styles/partials/Mixins' as *;
+
+.container {
+    @include flexDisplayColumnCenter;
+}
+
+.figure {
+    font-size: 1.75rem;
+}

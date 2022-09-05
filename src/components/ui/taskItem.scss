@@ -1,0 +1,47 @@
+@use '../../styles/partials/Breakpoints' as *;
+@use '../../styles/partials/Colours' as *;
+@use '../../styles/partials/Mixins' as *;
+
+.task {
+    @include itemDimensions;
+    height: fit-content;
+    padding: 1rem;
+    margin: 1rem;
+
+    &__title {
+        font-size: 1.5rem;
+    }
+
+    &__footer {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+@include tablet {
+    .task {
+        display: flex;
+        justify-content: row;
+        justify-content: space-between;
+        width: 100%;
+        padding: 0.5rem 2rem;
+
+        &__title {
+            width: 85%;
+        }
+
+        &__footer {
+            width: 15%;
+            justify-content: space-around;
+        }
+    }
+
+}
+
+@include desktop {
+    .task {
+        &__footer{
+            width: 10%;
+        }
+    }
+}

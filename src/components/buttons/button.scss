@@ -1,0 +1,18 @@
+@use '../../styles/partials/Colours' as *;
+@use '../../styles/partials/Mixins' as *;
+@use '../../styles/partials/Fonts' as*;
+
+.button {
+    @include button;
+}
+
+.icon {
+    height: 2.4rem;
+    width: 2.4rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.plus {
+    width: 1.75rem;
+}

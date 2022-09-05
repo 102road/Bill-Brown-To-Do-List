@@ -1,0 +1,115 @@
+@use '../../styles/partials/Breakpoints' as *;
+@use '../../styles/partials/Colours' as *;
+@use '../../styles/partials/Mixins' as *;
+
+
+.home {
+    @include flexDisplayColumnCenter;
+    margin: 1rem;
+
+    &__container {
+        margin: 1rem;
+        animation: slide-down 1.25s ease;
+    }
+
+    &__title {
+        font-size: 2.5rem;
+        margin: 1rem;
+    }
+
+    &__buttons {
+        display: flex;
+        flex-direction: row;
+        animation: slide-up 1.25s ease;
+    }
+
+    @keyframes slide-down {
+        0% {
+            transform: translateY(-500%);
+            opacity: 0;
+        }
+    }
+
+    @keyframes slide-up {
+        0% {
+            transform: translateY(500%);
+            opacity: 0;
+        }
+    }
+
+}
+
+.projects {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__title {
+        font-size: 2.5rem;
+        margin: 2rem;
+        animation: slide-down 1.5s ease;
+    }
+
+    &__container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        animation: slide-up 1.5s ease;
+    }
+
+    &__text {
+        align-self: center;
+        margin: 2.55rem;
+    }
+}
+
+.heading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem 0;
+
+    &__title {
+        font-size: 2.5rem;
+        margin: 1rem;
+    }
+}
+
+.footing {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    &__title {
+        font-size: 1.5rem;
+        margin: 1rem;
+    }
+}
+
+
+@include tablet {
+    .projects {
+        height: 100%;
+        justify-content: center;
+    }
+
+    .header {
+        &__title {
+            font-size: 3.5rem;
+        }
+    }
+    .footing{
+        &__title{
+            font-size: 2.5rem;
+        }
+    }
+
+}
+
+@include desktop {
+    .header {
+        &__title {
+            font-size: 5rem;
+        }
+    }
+}

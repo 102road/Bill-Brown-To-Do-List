@@ -1,0 +1,138 @@
+@use '../../../styles/partials/Breakpoints' as *;
+@use '../../../styles/partials/Colours' as *;
+@use '../../../styles/partials/Mixins' as *;
+
+.sign-in {
+    position: fixed;
+    top: 0;
+    bottom: 10;
+    left: 0;
+    right: 0;
+    margin: 1rem;
+    background-color: $first-background;
+    animation: slide-down 0.5s ease;
+    @include flexDisplayColumnCenter;
+
+    &__pop-up {
+        height: 25%;
+        position: fixed;
+        top: 0;
+        bottom: 10;
+        left: 0;
+        right: 0;
+        background-color: $first-background;
+        @include flexDisplayColumnCenter;
+
+        &--title {
+            font-size: 3rem;
+            margin: 2rem;
+        }
+    }
+
+    &__container {
+        display: flex;
+        flex-direction: column;
+        width: 375px;
+    }
+
+    &__button {
+        height: 1.25rem;
+        width: 1rem;
+        cursor: pointer;
+        align-self: flex-end;
+    }
+
+    &__button:hover {
+        scale: 150%;
+    }
+
+    &__header {
+        display: flex;
+        align-self: center;
+    }
+
+    &__title {
+        font-size: 2.65rem;
+    }
+
+    &__message {
+        color: $first-warning;
+        padding: 1rem 0;
+        align-self: center;
+    }
+
+    &__buttons {
+        align-self: center;
+        margin: 2rem;
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        margin: 1rem;
+    }
+
+    &__label {
+        font-size: 2rem;
+        color: $first-text;
+    }
+
+    &__password {
+        display: flex;
+        width: 100%;
+    }
+
+    &__input {
+        width: 100%;
+    }
+
+    &__username {
+        width: 100%;
+    }
+
+    &__register {
+        font-size: 2rem;
+    }
+}
+
+.button:hover {
+    background-color: $third-background;
+}
+
+.show-password-button {
+    height: 1.8rem;
+    width: 1.5rem;
+    cursor: pointer;
+}
+
+.show-password-button:hover {
+    background-color: $third-background;
+}
+
+.link {
+    margin: 2rem;
+}
+
+.link:hover {
+    font-size: 1.5rem;
+    border: solid 2px $first-text;
+    border-radius: 1rem;
+    padding: 1rem;
+    background-color: $third-background;
+}
+
+@include tablet {
+    .home {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    .sign-in,
+    .sign-in__pop-up {
+        bottom: 0;
+        height: 100%;
+    }
+}

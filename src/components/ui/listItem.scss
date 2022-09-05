@@ -1,0 +1,59 @@
+@use '../../styles/partials/Breakpoints' as *;
+@use '../../styles/partials/Colours' as *;
+@use '../../styles/partials/Mixins' as *;
+
+.item {
+    margin: 3rem;
+
+    &__container {
+        @include itemDimensions;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        border: solid 2px;
+        justify-content: space-between;
+        animation: slide-in 1s ease forwards,
+    }
+
+    &__main {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin: 1rem 0;
+
+    }
+
+    &__title {
+        font-size: 2rem;
+    }
+
+    &__description {
+        font-size: 1.4rem;
+    }
+
+    &__graphics{
+        margin: 2rem 0;
+    }
+
+    &__icons {
+        display: flex;
+        justify-content: space-around;
+        margin: 2rem 0;
+    }
+}
+
+@keyframes slide-in {
+    0% {
+        transform: translateY(200%);
+    }
+
+    100% {
+        transform: translateY(0%);
+    }
+}
+
+@keyframes scale-slow {
+    to {
+        scale: 110%;
+    }
+}

@@ -1,0 +1,29 @@
+@use '../../styles/partials/Colours' as *;
+@use '../../styles/partials/Breakpoints' as *;
+@use '../../styles/partials/Mixins' as *;
+@use '../../styles/partials/Fonts' as *;
+
+.date {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border: solid 1px $third-background;
+    border-bottom-right-radius: 10%;
+    border-bottom-left-radius: 10%;
+    box-shadow: 3px 3px 10px $third-background;
+    width: fit-content;
+
+    &__info {
+        font-size: 1rem;
+        padding: 0 1rem;
+        &--month {
+            background-color: red;
+            color: $first-background;
+            width: 100%;
+        }
+
+        &--day {
+            font-size: 2rem;
+        }
+    }
+}
