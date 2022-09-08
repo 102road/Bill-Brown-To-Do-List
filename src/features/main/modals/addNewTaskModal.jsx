@@ -12,11 +12,11 @@ const DESCRIPTION_REGEX = /^[A-z0-9-,.? ! ]{1,250}$/;
 
 export default function addNewTaskModal({ setShow, reload, setReload }) {
   const [description, setDescription] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [message, setMessage] = useState("");
 
   const { ProjectTitle, ToDoTitle } = useParams();
 
-  const [response, error, isLoading, axiosFetch] = useAxiosFunction();
+  const [response,errorMessage, error, isLoading, axiosFetch] = useAxiosFunction();
 
   const postData = () => {
     axiosFetch({
@@ -36,7 +36,7 @@ export default function addNewTaskModal({ setShow, reload, setReload }) {
     e.preventDefault();
     const validate = DESCRIPTION_REGEX.test(description);
     if (!validate)
-      return setErrorMessage(
+      return setMessage(
         "Description contains invalid characters. [. , ! ?]"
       );
     postData();

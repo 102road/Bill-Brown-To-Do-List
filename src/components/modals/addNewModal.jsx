@@ -15,8 +15,8 @@ const TITLE_REGEX = /^[A-z0-9-,.? ]{1,25}$/;
 const DESCRIPTION_REGEX = /^[A-z0-9-,.? ]{1,100}$/;
 
 export default function addNewModal({ type, setShow, reload, setReload }) {
-  
-  const [response, error, isLoading, axiosFetch] = useAxiosFunction();
+  const [response, errorMessage, error, isLoading, axiosFetch] =
+    useAxiosFunction();
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -28,7 +28,7 @@ export default function addNewModal({ type, setShow, reload, setReload }) {
   const [validDate, setValidDate] = useState(false);
   const [validTime, setValidTime] = useState(false);
 
-  const [errorMessage, setErrorMessage] = useState("");
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     setValidTitle(TITLE_REGEX.test(title));
@@ -39,7 +39,7 @@ export default function addNewModal({ type, setShow, reload, setReload }) {
   }, [description]);
 
   useEffect(() => {
-    setErrorMessage(error);
+    setMessage(error);
   }, [error]);
 
   const { ProjectTitle, ToDoTitle } = useParams();
@@ -67,8 +67,8 @@ export default function addNewModal({ type, setShow, reload, setReload }) {
     const v1 = TITLE_REGEX.test(title);
     const v2 = DESCRIPTION_REGEX.test(description);
 
-    if (!v1) return setErrorMessage("Title not valid");
-    if (!v2) return setErrorMessage("Description not valid");
+    if (!v1) return setMessage("Title not valid");
+    if (!v2) return setMessage("Description not valid");
 
     postData();
     setShow(false);
@@ -85,10 +85,7 @@ export default function addNewModal({ type, setShow, reload, setReload }) {
   return (
     <>
       <form className="new__form" onSubmit={handleSubmit}>
-
         <div className="new__container">
-
-
           <button className="new__button" onClick={() => setShow(false)}>
             X
           </button>
@@ -154,7 +151,6 @@ export default function addNewModal({ type, setShow, reload, setReload }) {
             <Clear handleClear={handleClear} />
             <Submit handleSubmit={handleSubmit} />
           </div>
-
         </div>
       </form>
     </>
