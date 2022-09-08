@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 
 const useAxiosFunction = () => {
   const [response, setResponse] = useState([]);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [controller, setController] = useState();
 
@@ -19,7 +20,8 @@ const useAxiosFunction = () => {
       });
       setResponse(res.data);
     } catch (err) {
-      setError(err.message);
+      setErrorMessage(err.message);
+      setError(true);
     } finally {
       setLoading(false);
     }
@@ -28,8 +30,8 @@ const useAxiosFunction = () => {
   useEffect(() => {
     return () => controller && controller.abort();
   }, [controller]);
-  
-  return [response, error, loading, axiosFetch];
+
+  return [response, errorMessage, error, loading, axiosFetch];
 };
 
 export default useAxiosFunction;

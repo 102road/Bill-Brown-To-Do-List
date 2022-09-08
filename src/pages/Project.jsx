@@ -15,7 +15,7 @@ export default function singleProject() {
   const [reload, setReload] = useState();
   const { ProjectTitle } = useParams();
 
-  const [project, error, isLoading, axiosFetch] = useAxiosFunction();
+  const [project, errorMessage, error, isLoading, axiosFetch] = useAxiosFunction();
 
   useEffect(() => {
     fetchData();

@@ -35,17 +35,6 @@
         width: 375px;
     }
 
-    &__button {
-        height: 1.25rem;
-        width: 1rem;
-        cursor: pointer;
-        align-self: flex-end;
-    }
-
-    &__button:hover {
-        scale: 150%;
-    }
-
     &__header {
         display: flex;
         align-self: center;
@@ -111,14 +100,11 @@
 
 .link {
     margin: 2rem;
+    font-size: 1rem;
 }
 
 .link:hover {
-    font-size: 1.5rem;
-    border: solid 2px $first-text;
-    border-radius: 1rem;
-    padding: 1rem;
-    background-color: $third-background;
+    color: blue;
 }
 
 @include tablet {

@@ -1,8 +1,8 @@
 import React from "react";
 import "../features/main/main.scss";
 
-import SignUpButton from "../features/authentication/buttons/signUpButton";
-import SignInButton from "../features/authentication/buttons/signInButton";
+import LoginButton from "../features/main/buttons/LoginButton";
+import RegisterButton from "../features/main/buttons/RegisterButton";
 
 export default function Home() {
   return (
@@ -12,8 +12,8 @@ export default function Home() {
           <h1 className="home__title">Welcome to Project Pursuit!</h1>
         </div>
         <div className="home__buttons">
-          <SignInButton />
-          <SignUpButton />
+          <LoginButton />
+          <RegisterButton />
         </div>
       </section>
     </>

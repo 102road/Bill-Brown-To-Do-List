@@ -12,7 +12,7 @@ export default function projects() {
   // Hooks
   const [reload, setReload] = useState();
 
-  const [projects, error, isLoading, axiosFetch] = useAxiosFunction();
+  const [projects,errorMessage,  error, isLoading, axiosFetch] = useAxiosFunction();
 
   const fetchData = () => {
     axiosFetch({

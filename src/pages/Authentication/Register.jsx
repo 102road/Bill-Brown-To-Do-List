@@ -1,18 +1,20 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import './authentication.scss'
+import "../../features/main/modals/authentication.scss";
 
 import Clear from "../../../components/buttons/clear";
 import Submit from "../../../components/buttons/submit";
 
 import axios from "../../../apis/users";
 import useAxiosFunction from "../../../hooks/useAxiosFunction";
+import { setDefaultOptions } from "date-fns";
 
 const USER_REGEX = /^[A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#£$%]).{8,24}$/;
 
-export default function signUp({ setShow }) {
+export default function signUp() {
+  // State hooks
   const userRef = useRef();
 
   const [username, setUsername] = useState("");
@@ -27,9 +29,12 @@ export default function signUp({ setShow }) {
   const [showMatch, setShowMatch] = useState(false);
 
   const [success, setSuccess] = useState(false);
+  const [fail, setFail] = useState(false);
+  const [message, setMessage] = useState("");
 
-  const [user, error, isLoading, axiosFetch] = useAxiosFunction();
+  const [user, errorMessage, error, isLoading, axiosFetch] = useAxiosFunction();
 
+  // UseEffects hooks
   useEffect(() => {
     userRef.current.focus();
   }, []);
@@ -47,6 +52,8 @@ export default function signUp({ setShow }) {
     sessionStorage.setItem("token", user.authToken);
   }, [user]);
 
+  //Axios function
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const v1 = USER_REGEX.test(username);
@@ -61,8 +68,16 @@ export default function signUp({ setShow }) {
       url: "/signup",
       requestConfig: { username: username, password: password },
     });
-    setSuccess(true);
+    if (error) {
+      setMessage(errorMessage);
+      setFail(true);
+    }
+    if (!error) {
+      setSuccess(true);
+    }
   };
+
+  //Utility functions
 
   const toggleShowPassword = (e) => {
     e.preventDefault();
@@ -86,12 +101,16 @@ export default function signUp({ setShow }) {
           <Link to="/Projects">Go To Projects</Link>
         </section>
       )}
+      {!isLoading && fail && (
+        <section className="sign-in__message">
+          <p className="sign-in__title">Account couldn't be created</p>
+          <p className="sign-in__title">{message}</p>
+          <p className="sign-in__title">Refresh the page to try again</p>
+        </section>
+      )}
       {!isLoading && !success && (
         <section className="sign-in">
           <div className="sign-in__container">
-            <button className="sign-in__button" onClick={() => setShow(false)}>
-              X
-            </button>
             <div className="sign-in__header">
               <h1 className="sign-in__title">Register</h1>
             </div>

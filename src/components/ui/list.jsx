@@ -8,7 +8,7 @@ import Right from "../../assets/icons/right-chevron.svg";
 
 export default function List({ data }) {
   const [list, setList] = useState(data);
-  const [array, setArray] = useState([]);
+  const [array, setArray] = useState();
 
   const [indexStart, setIndexStart] = useState(null);
   const [indexEnd, setIndexEnd] = useState(4);
@@ -29,6 +29,8 @@ export default function List({ data }) {
     setIndexEnd(indexEnd - 4);
   };
 
+  console.log(array);
+
   return (
     <>
       {!indexStart ? (
@@ -38,7 +40,7 @@ export default function List({ data }) {
       )}
 
       <div className="list">
-        {array.map((item) => {
+        {array?.length && array.map((item) => {
           return <ListItem key={item.id} {...item} />;
         })}
       </div>

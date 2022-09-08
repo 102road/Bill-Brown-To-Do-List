@@ -13,7 +13,7 @@ export default function singleToDo() {
 
   const { ProjectTitle, ToDoTitle } = useParams();
 
-  const [toDo, error, isLoading, fetchAxios] = useAxiosFunction();
+  const [toDo, errorMessage, error, isLoading, fetchAxios] = useAxiosFunction();
 
   const fetchData = () => {
     fetchAxios({
