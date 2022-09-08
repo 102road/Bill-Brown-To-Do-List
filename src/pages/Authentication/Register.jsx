@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import "../../features/main/modals/authentication.scss";
+import "../../features/main/authentication.scss";
 
 import Clear from "../../components/buttons/clear";
 import Submit from "../../components/buttons/submit";
