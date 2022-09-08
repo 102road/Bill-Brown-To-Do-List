@@ -6,8 +6,8 @@ import "../../features/main/modals/authentication.scss";
 
 import useAxiosFunction from "../../hooks/useAxiosFunction";
 
-import Clear from "../../../components/buttons/clear";
-import Submit from "../../../components/buttons/submit";
+import Clear from "../../components/buttons/clear";
+import Submit from "../../components/buttons/submit";
 
 export default function signIn() {
   // Hooks

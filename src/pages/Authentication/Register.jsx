@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 import "../../features/main/modals/authentication.scss";
 
-import Clear from "../../../components/buttons/clear";
-import Submit from "../../../components/buttons/submit";
+import Clear from "../../components/buttons/clear";
+import Submit from "../../components/buttons/submit";
 
 import axios from "../../apis/users";
 import useAxiosFunction from "../../hooks/useAxiosFunction";
