@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "../../apis/users";
 
-import "../../features/main/modals/authentication.scss";
+import '../../features/main/authentication.scss';
 
 import useAxiosFunction from "../../hooks/useAxiosFunction";
 
