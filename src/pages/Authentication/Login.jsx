@@ -4,7 +4,7 @@ import axios from "../../apis/users";
 
 import "../../features/main/modals/authentication.scss";
 
-import useAxiosFunction from "../../../hooks/useAxiosFunction";
+import useAxiosFunction from "../../hooks/useAxiosFunction";
 
 import Clear from "../../../components/buttons/clear";
 import Submit from "../../../components/buttons/submit";

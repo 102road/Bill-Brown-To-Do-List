@@ -7,7 +7,7 @@ import Clear from "../../../components/buttons/clear";
 import Submit from "../../../components/buttons/submit";
 
 import axios from "../../apis/users";
-import useAxiosFunction from "../../../hooks/useAxiosFunction";
+import useAxiosFunction from "../../hooks/useAxiosFunction";
 
 const USER_REGEX = /^[A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#£$%]).{8,24}$/;
