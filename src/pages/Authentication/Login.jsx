@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "../../../apis/users";
+import axios from "../../apis/users";
 
 import "../../features/main/modals/authentication.scss";
 
