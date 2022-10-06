@@ -2,123 +2,57 @@
 @use '../../styles/partials/Colours' as *;
 @use '../../styles/partials/Mixins' as *;
 
-.sign-in {
-    position: fixed;
-    top: 0;
-    bottom: 10;
-    left: 0;
-    right: 0;
-    margin: 1rem;
-    background-color: $first-background;
-    animation: slide-down 0.5s ease;
-    @include flexDisplayColumnCenter;
-
-    &__pop-up {
-        height: 25%;
-        position: fixed;
-        top: 0;
-        bottom: 10;
-        left: 0;
-        right: 0;
-        background-color: $first-background;
-        @include flexDisplayColumnCenter;
-
-        &--title {
-            font-size: 3rem;
-            margin: 2rem;
-        }
-    }
-
-    &__container {
-        display: flex;
-        flex-direction: column;
-        width: 375px;
-    }
-
-    &__header {
-        display: flex;
-        align-self: center;
-    }
-
-    &__title {
-        font-size: 2.65rem;
-    }
-
-    &__message {
-        color: $first-warning;
-        padding: 1rem 0;
-        align-self: center;
-    }
-
-    &__buttons {
-        align-self: center;
-        margin: 2rem;
-    }
-
-    &__form {
-        display: flex;
-        flex-direction: column;
-        margin: 1rem;
-    }
-
-    &__label {
-        font-size: 2rem;
-        color: $first-text;
-    }
-
-    &__password {
-        display: flex;
-        width: 100%;
-    }
-
-    &__input {
-        width: 100%;
-    }
-
-    &__username {
-        width: 100%;
-    }
-
-    &__register {
-        font-size: 2rem;
-    }
+.login {
+    width: 100%;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.button:hover {
-    background-color: $third-background;
+.form {
+    width: 80%;
 }
 
-.show-password-button {
-    height: 1.8rem;
+.username {
+    display: flex;
+    flex-direction: column;
+    height: 40%;
+}
+
+.password {
+    display: flex;
+    flex-direction: column;
+    height: 40%;
+}
+
+.label {
+    font-size: 2rem;
+}
+
+.input {
+    height: 2rem;
+}
+
+.password-container {
+    display: flex;
+}
+
+.password-input {
+    width: 90%;
+}
+
+.show-password {
     width: 1.5rem;
-    cursor: pointer;
+    height: 2rem;
 }
 
-.show-password-button:hover {
-    background-color: $third-background;
+.buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1rem;
 }
 
-.link {
-    margin: 2rem;
-    font-size: 1rem;
-}
-
-.link:hover {
-    color: blue;
-}
-
-@include tablet {
-    .home {
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-    }
-
-    .sign-in,
-    .sign-in__pop-up {
-        bottom: 0;
-        height: 100%;
-    }
+.display-message {
+    margin: 1rem;
 }

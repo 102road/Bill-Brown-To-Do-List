@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import "../../features/authentication.scss";
+import "../../features/main/authentication.scss";
+
+import Clear from "../../components/buttons/clear";
+import Submit from "../../components/buttons/submit";
 
 export default function Login() {
   // Declaration of states
@@ -15,6 +18,12 @@ export default function Login() {
 
   const [message, setMessage] = useState("");
   const [errMessage, setErrMessage] = useState("");
+
+  const handleClear = (e) => {
+    e.preventDefault();
+    setUsername("");
+    setPassword("");
+  };
 
   const handleSubmit = async () => {
     try {
@@ -53,40 +62,50 @@ export default function Login() {
     <>
       {/*form to fill in login details*/}
       {!isLoading && (
-        <form className="login">
-          <div className="username">
-            <label className="label"></label>
-            <input className="input"></input>
+        <div className="login">
+          <form className="form">
+            <div className="username">
+              <label className="label">Username:</label>
+              <input className="input"></input>
+            </div>
+            <div className="password">
+              <label className="label">Password:</label>
+              <div className="password-container">
+                <input className="input password-input"></input>
+                <button className="show-password">O</button>
+              </div>
+            </div>
+          </form>
+          <div className="buttons">
+            <Clear handleClear={handleClear} />
+            <Submit handleSubmit={handleSubmit} />
           </div>
-          <div className="password">
-            <label className="label"></label>
-            <input className="input"></input>
-            <button className="show-password">O</button>
+          <div className="display-message">
+            <p>{errMessage} Caps lock turned on</p>
           </div>
-          <p className="message">{message}</p>
-        </form>
+        </div>
       )}
 
       {/*loading meesage*/}
       {isLoading && (
         <article className="standby">
-          <p>Loading...</p>
+          <p className="standby-message">Loading...</p>
         </article>
       )}
 
       {/*error mesage*/}
       {!isLoading && !success && error && (
-        <article>
-          <p>Error!</p>
-          <p>{errMessage}</p>
+        <article className="standby">
+          <p className="standby-message">Error!</p>
+          <p className="standby-message">{errMessage}</p>
         </article>
       )}
 
       {/*displays success message and allows user to select their projects*/}
       {!isLoading && success && (
-        <article>
-          <p>Login Successfull!</p>
-          <button>Projects</button>
+        <article className="standby">
+          <p className="standby-message">Login Successfull!</p>
+          <button className="success-button">Projects</button>
         </article>
       )}
     </>

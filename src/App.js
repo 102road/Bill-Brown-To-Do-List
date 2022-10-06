@@ -2,7 +2,7 @@ import "./App.scss";
 import { Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
-import Login from "./pages/Authentication/Login";
+import Login from "./pages/Authentication/LoginNew";
 import Register from "./pages/Authentication/Register";
 import Projects from "./pages/Projects";
 import Project from "./pages/Project";
