@@ -3,7 +3,7 @@
 @use '../../styles/partials/Mixins' as *;
 
 .login {
-    width: 100%;
+    height: 100vh;
     margin-top: 2rem;
     display: flex;
     flex-direction: column;
@@ -17,13 +17,12 @@
 .username {
     display: flex;
     flex-direction: column;
-    height: 40%;
+    margin: 1rem 0;
 }
 
 .password {
     display: flex;
     flex-direction: column;
-    height: 40%;
 }
 
 .label {
@@ -39,7 +38,7 @@
 }
 
 .password-input {
-    width: 90%;
+    width: 100%;
 }
 
 .show-password {
@@ -55,4 +54,35 @@
 
 .display-message {
     margin: 1rem;
+    font-size: 1.5rem;
+}
+
+.standby{
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.standby-message{
+    font-size: 2.5rem;
+    margin: 1rem;
+}
+
+@include tablet{
+    .form{
+        width: 65%;
+    }
+    .standby{
+        height: 100vh;
+        justify-content: center;
+    }
+}
+@include desktop {
+    .login{
+        justify-content: center;
+    }
+    .label{
+        font-size: 3rem;
+    }
 }

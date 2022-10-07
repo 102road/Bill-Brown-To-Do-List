@@ -1,23 +1,33 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import {Link} from 'react-router-dom';
 import axios from "axios";
+import ReactIsCapsLockActive from "@matsun/reactiscapslockactive";
 
 import "../../features/main/authentication.scss";
 
 import Clear from "../../components/buttons/clear";
 import Submit from "../../components/buttons/submit";
 
+const url = "http://localhost:4000/users/login";
+
 export default function Login() {
   // Declaration of states
 
-  const [login, setLogin] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const [success, setSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  const [message, setMessage] = useState("");
   const [errMessage, setErrMessage] = useState("");
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const toggleShowPassword = (e) => {
+    e.preventDefault();
+    setShowPassword(!showPassword);
+  };
 
   const handleClear = (e) => {
     e.preventDefault();
@@ -28,51 +38,69 @@ export default function Login() {
   const handleSubmit = async () => {
     try {
       setIsLoading(true);
-      const res = await axios.put(url, { login: login, password: password });
-      if (res.status === 201) {
+      const res = await axios.post(url, { username: username, password: password });
+      console.log(res);
+      if (res.status === 200) {
         sessionStorage.setItem("token", res.data.authToken);
         setIsLoading(false);
         setSuccess(true);
         return;
       }
-      if (res.status === 401) {
-        setIsLoading(false);
-        setErrMessage("Username Not Found");
-        setError(true);
-        return;
-      }
-      if (res.status === 404) {
-        setIsLoading(false);
-        setErrMessage("Server Not Responding At This Time");
-        setError(true);
-        return;
-      }
-      if (res.status === 501) {
-        setIsLoading(false);
-        setErrMessage("Incorrect Password");
-        setError(true);
-        return;
-      }
     } catch (err) {
-      setErrMessage("Login Failed");
+      console.log(err);
+      if (err.request.status === 401) {
+        setErrMessage("Username Is Not Recognised");
+        setError(true);
+        setIsLoading(false);
+        return;
+      }
+      if (err.request.status === 404) {
+        setErrMessage("Server Is Not Responding At This Time");
+        setError(true);
+        setIsLoading(false);
+        return;
+      }
+      if (err.request.status === 501) {
+        setErrMessage("Password Entered Is Incorrect");
+        setError(true);
+        setIsLoading(false);
+        return;
+      }
     }
   };
 
   return (
     <>
-      {/*form to fill in login details*/}
-      {!isLoading && (
+      {/*form to fill in username details*/}
+      {!isLoading && !success && !error && (
         <div className="login">
           <form className="form">
             <div className="username">
               <label className="label">Username:</label>
-              <input className="input"></input>
+              <input
+                className="input"
+                name="username"
+                type="text"
+                value={username}
+                autoComplete="off"
+                onChange={(e) => setUsername(e.target.value)}
+              ></input>
             </div>
             <div className="password">
               <label className="label">Password:</label>
               <div className="password-container">
-                <input className="input password-input"></input>
-                <button className="show-password">O</button>
+                <input
+                  className="input password-input"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                ></input>
+                <button className="show-password" onClick={toggleShowPassword}>
+                  O
+                </button>
               </div>
             </div>
           </form>
@@ -80,9 +108,13 @@ export default function Login() {
             <Clear handleClear={handleClear} />
             <Submit handleSubmit={handleSubmit} />
           </div>
-          <div className="display-message">
-            <p>{errMessage} Caps lock turned on</p>
-          </div>
+          <ReactIsCapsLockActive>
+            {(active) => (
+              <span className="display-message">
+                {active ? "Caps lock is  active" : ""}
+              </span>
+            )}
+          </ReactIsCapsLockActive>
         </div>
       )}
 
@@ -105,7 +137,9 @@ export default function Login() {
       {!isLoading && success && (
         <article className="standby">
           <p className="standby-message">Login Successfull!</p>
-          <button className="success-button">Projects</button>
+          <Link to='/Projects'>
+          <button className="button">Projects</button>
+          </Link>
         </article>
       )}
     </>
