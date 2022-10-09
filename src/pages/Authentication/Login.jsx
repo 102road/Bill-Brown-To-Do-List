@@ -1,58 +1,28 @@
-import React, { useRef, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import axios from "../../apis/users";
+import React, { useState } from "react";
+import {Link} from 'react-router-dom';
+import axios from "axios";
+import ReactIsCapsLockActive from "@matsun/reactiscapslockactive";
 
-import '../../features/main/authentication.scss';
-
-import useAxiosFunction from "../../hooks/useAxiosFunction";
+import "../../features/main/authentication.scss";
 
 import Clear from "../../components/buttons/clear";
 import Submit from "../../components/buttons/submit";
 
-export default function signIn() {
-  // Hooks
-  const userRef = useRef();
+const url = "http://localhost:4000/users/login";
+
+export default function Login() {
+  // Declaration of states
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const [showPassword, setShowPassword] = useState(false);
-
   const [success, setSuccess] = useState(false);
-  const [fail, setFail] = useState(false);
-  const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
 
-  const [user, errorMessage, error, isLoading, axiosFetch] = useAxiosFunction();
+  const [errMessage, setErrMessage] = useState("");
 
-  useEffect(() => {
-    userRef.current.focus();
-  }, []);
-
-  useEffect(() => {
-    sessionStorage.setItem("token", user.authToken);
-  }, [user]);
-
-  // Functions
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    axiosFetch({
-      axiosInstance: axios,
-      method: "POST",
-      url: "/login",
-      requestConfig: {
-        username: username,
-        password: password,
-      },
-    });
-    if (error) {
-      setMessage(errorMessage);
-      setFail(true);
-      return;
-    }
-    if (!error) {
-      return setSuccess(true);
-    }
-  };
+  const [showPassword, setShowPassword] = useState(false);
 
   const toggleShowPassword = (e) => {
     e.preventDefault();
@@ -65,71 +35,107 @@ export default function signIn() {
     setPassword("");
   };
 
+  const handleSubmit = async () => {
+    try {
+      setIsLoading(true);
+      const res = await axios.post(url, { username: username, password: password });
+        sessionStorage.setItem("token", res.data.authToken);
+        setIsLoading(false);
+        setSuccess(true);
+    } catch (err) {
+      if (err.request.status === 401) {
+        setErrMessage("Username Is Not Recognised");
+        setError(true);
+        setIsLoading(false);
+        return;
+      }
+      if (err.request.status === 404) {
+        setErrMessage("Server Is Not Responding At This Time");
+        setError(true);
+        setIsLoading(false);
+        return;
+      }
+      if (err.request.status === 501) {
+        setErrMessage("Password Entered Is Incorrect");
+        setError(true);
+        setIsLoading(false);
+        return;
+      }
+    }
+  };
+
   return (
     <>
-      {isLoading && <p className="sign-in__pop-up">Loading...</p>}
-      {!isLoading && success && (
-        <section className="sign-in__pop-up">
-          <p className="sign-in__pop-up--title">Login Successfull!</p>
-          <Link to="/Projects">
-            <span className="link">Projects</span>
-          </Link>
-        </section>
-      )}
-      {!isLoading && fail && (
-        <section className="sign-in__message">
-          <p className="sign-in__title">Looks like you could not sign in</p>
-          <p className="sign-in__title">{message}</p>
-          <p className="sign-in__title">Refresh the page to try again</p>
-        </section>
-      )}
-      {!isLoading && !success && (
-        <section className="sign-in">
-          <div className="sign-in__container">
-            <div className="sign-in__header">
-              <h1 className="sign-in__title">Log In</h1>
-            </div>
-            {error && <p className="sign-in__message">{error}</p>}
-            <form className="sign-in__form">
-              <label className="sign-in__label">Username:</label>
+      {/*form to fill in username details*/}
+      {!isLoading && !success && !error && (
+        <section className="login">
+          <form className="form">
+            <div className="username">
+              <label className="label">Username:</label>
               <input
-                className="sign-in__username"
+                className="input"
                 name="username"
                 type="text"
                 value={username}
-                ref={userRef}
                 autoComplete="off"
-                onChange={(e) => {
-                  setUsername(e.target.value);
-                }}
-                required
+                onChange={(e) => setUsername(e.target.value)}
               ></input>
-              <label className="sign-in__label">Password:</label>
-              <div className="sign-in__password">
+            </div>
+            <div className="password">
+              <label className="label">Password:</label>
+              <div className="password-container">
                 <input
-                  className="sign-in__input"
+                  className="input password-input"
                   name="password"
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => {
                     setPassword(e.target.value);
                   }}
-                  required
                 ></input>
-                <button
-                  className="show-password-button"
-                  onClick={toggleShowPassword}
-                >
-                  O
+                <button className="show-password" onClick={toggleShowPassword}>
+                  Show
                 </button>
               </div>
-            </form>
-            <div className="sign-in__buttons">
-              <Clear handleClear={handleClear} />
-              <Submit handleSubmit={handleSubmit} />
             </div>
+          </form>
+          <div className="buttons">
+            <Clear handleClear={handleClear} />
+            <Submit handleSubmit={handleSubmit} />
           </div>
+          <ReactIsCapsLockActive>
+            {(active) => (
+              <span className="display-message">
+                {active ? "Caps lock is  active" : ""}
+              </span>
+            )}
+          </ReactIsCapsLockActive>
         </section>
+      )}
+
+      {/*loading meesage*/}
+      {isLoading && (
+        <article className="standby">
+          <p className="standby-message">Loading...</p>
+        </article>
+      )}
+
+      {/*error mesage*/}
+      {!isLoading && !success && error && (
+        <article className="standby">
+          <p className="standby-message">Error!</p>
+          <p className="standby-message">{errMessage}</p>
+        </article>
+      )}
+
+      {/*displays success message and allows user to select their projects*/}
+      {!isLoading && success && (
+        <article className="standby">
+          <p className="standby-message">Login Successfull!</p>
+          <Link to='/Projects'>
+          <button className="button">Projects</button>
+          </Link>
+        </article>
       )}
     </>
   );
