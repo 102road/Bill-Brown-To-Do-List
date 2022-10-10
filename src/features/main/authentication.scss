@@ -14,15 +14,10 @@
     width: 80%;
 }
 
-.username {
+.divider{
     display: flex;
     flex-direction: column;
-    margin: 1rem 0;
-}
-
-.password {
-    display: flex;
-    flex-direction: column;
+    margin: 0.5rem 0;
 }
 
 .label {
@@ -66,6 +61,12 @@
 .standby-message{
     font-size: 2.5rem;
     margin: 1rem;
+}
+
+.pop-up{
+    &__message{
+        margin: 1rem 0;
+    }
 }
 
 @include tablet{

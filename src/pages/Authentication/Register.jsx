@@ -19,16 +19,19 @@ export default function signUp() {
 
   const [username, setUsername] = useState("");
   const [validUsername, setValidUsername] = useState(false);
+  const [showUsernameMessage, setShowUsernameMessage] = useState(false);
 
   const [password, setPassword] = useState("");
   const [validPassword, setValidPassword] = useState(false);
+  const [showPasswordMessage, setShowPasswordMessage] = useState(false);
 
   const [matchPassword, setMatchedPassword] = useState("");
   const [validMatch, setValidMatch] = useState(false);
+  const [showMatchPasswordMessage, setShowMatchPasswordMessage] =
+    useState(false);
   const [showMatch, setShowMatch] = useState(false);
 
   const [showPassword, setShowPassword] = useState(false);
-  const [showMessage, setShowMessage] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -42,6 +45,10 @@ export default function signUp() {
   }, []);
 
   useEffect(() => {
+    setValidUsername(USER_REGEX.test(username));
+  }, [username]);
+
+  useEffect(() => {
     setValidPassword(PWD_REGEX.test(password));
   }, [password, matchPassword]);
 
@@ -52,10 +59,19 @@ export default function signUp() {
     const v1 = USER_REGEX.test(username);
     const v2 = PWD_REGEX.test(password);
     const v3 = password === matchPassword;
-    if (!v1 || !v2 || !v3) {
+    if (!v1) {
       setValidUsername(USER_REGEX.test(username));
+      setShowUsernameMessage(true);
+      return;
+    }
+    if (!v2) {
+      setValidPassword(PWD_REGEX.test(password));
+      setShowPasswordMessage(true);
+      return;
+    }
+    if (!v3) {
       setValidMatch(password === matchPassword);
-      setShowMessage(true);
+      setShowMatchPasswordMessage(true);
       return;
     }
     setIsLoading(true);
@@ -113,7 +129,7 @@ export default function signUp() {
       {!isLoading && !success && !error && (
         <section className="login">
           <form className="form">
-            <div className="username">
+            <div className="divider">
               <label className="label">Username:</label>
               <input
                 className="input"
@@ -124,16 +140,16 @@ export default function signUp() {
                 ref={userRef}
                 onChange={(e) => setUsername(e.target.value)}
               ></input>
-              {!validUsername && showMessage && (
+              {!validUsername && showUsernameMessage && (
                 <div className="pop-up">
-                  <p className="pop-up-__message">
+                  <p className="pop-up__message">
                     Username must be between 3 and 23 characters long and only
                     contain letters and numbers.
                   </p>
                 </div>
               )}
             </div>
-            <div className="password">
+            <div className="divider">
               <label className="label">Password:</label>
               <div className="password-container">
                 <input
@@ -149,9 +165,9 @@ export default function signUp() {
                   Show
                 </button>
               </div>
-              {!validPassword && (
+              {!validPassword && showPasswordMessage && (
                 <div className="pop-up">
-                  <p className="pop-up-__message">
+                  <p className="pop-up__message">
                     Password must contain atleast one of the following:
                     Uppercase letter, lowercase letter, number and of these
                     symbols <span>!@#£$%. </span>Must be between 8 and 24
@@ -160,7 +176,7 @@ export default function signUp() {
                 </div>
               )}
             </div>
-            <div className="password">
+            <div className="divider">
               <label className="label">Confirm Password:</label>
               <div className="password-container">
                 <input
@@ -176,7 +192,7 @@ export default function signUp() {
                   Show
                 </button>
               </div>
-              {!validMatch && showMessage && (
+              {!validMatch && showMatchPasswordMessage && (
                 <div className="pop-up">
                   <p className="pop-up__message">Passwords must match</p>
                 </div>
