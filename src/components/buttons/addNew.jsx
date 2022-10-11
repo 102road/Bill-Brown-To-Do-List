@@ -18,6 +18,7 @@ export default function addNew({ type, reload, setReload }) {
       {show && (
         <AddNewModal
           type={type}
+          show={show}
           setShow={setShow}
           reload={reload}
           setReload={setReload}

@@ -70,7 +70,7 @@ export default function Login() {
       {!isLoading && !success && !error && (
         <section className="login">
           <form className="form">
-            <div className="username">
+            <div className="divider">
               <label className="label">Username:</label>
               <input
                 className="input"
@@ -81,7 +81,7 @@ export default function Login() {
                 onChange={(e) => setUsername(e.target.value)}
               ></input>
             </div>
-            <div className="password">
+            <div className="divider">
               <label className="label">Password:</label>
               <div className="password-container">
                 <input
