@@ -2,41 +2,59 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import axios from "../apis/database";
-import useAxiosFunction from "../hooks/useAxiosFunction";
 
 import Information from "../components/ui/information";
 import TaskList from "../components/ui/taskList";
 import AddNewTask from "../features/main/buttons/addNewTask";
 
 export default function singleToDo() {
-  const [reload, setReload] = useState(false);
+  // state hooks
+  const [toDo, setToDo] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState();
 
+  // param hook
   const { ProjectTitle, ToDoTitle } = useParams();
 
-  const [toDo, errorMessage, error, isLoading, fetchAxios] = useAxiosFunction();
-
+  // axios function
   const fetchData = () => {
-    fetchAxios({
-      axiosInstance: axios,
-      method: "get",
-      url: `/${ProjectTitle}/${ToDoTitle}`,
-    });
+    setIsLoading(true);
+    try {
+      const res = axios.get(`/${ProjectTitle}/${ToDoTitle}`);
+      setToDo(res);
+    } catch (err) {
+      if (err.request.status === 400) {
+        setError(true);
+        setErrorMessage("ToDo Could Not Be Found At This Time.");
+        setIsLoading(false);
+      }
+      if (err.request.status === 404) {
+        setError(true);
+        setErrorMessage("Server Is Not Responding At This Time");
+        setIsLoading(false);
+      }
+    }
   };
-
+  // useEffect hook
   useEffect(() => {
     fetchData();
   }, [reload]);
 
   return (
     <>
+      {/*loading screen */}
       {isLoading && <p>Loading ...</p>}
 
-      {!isLoading && error && <p>{error}</p>}
+      {/*error screen */}
+      {!isLoading && error && <p>{errorMessage}</p>}
 
+      {/*information section */}
       {!isLoading && !error && toDo?.type && (
         <Information {...toDo} items={toDo.tasks} />
       )}
 
+      {/*task list*/}
       {!isLoading && !error && toDo.tasks?.length > 0 && (
         <section className="heading">
           <AddNewTask reload={reload} setReload={setReload} />
@@ -44,6 +62,7 @@ export default function singleToDo() {
         </section>
       )}
 
+      {/*shows when the todo has no tasks, prompts user to create a new task*/}
       <section className="footing">
         {!isLoading && !error && toDo.tasks?.length === 0 && (
           <>

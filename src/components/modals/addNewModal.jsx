@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import uniqid from "uniqid";
 import { format } from "date-fns";
-import axios from "axios";
 
 import "./addNewModal.scss";
 
@@ -27,9 +26,8 @@ export default function addNewModal({ type, show, setShow }) {
   const { ProjectTitle, ToDoTitle } = useParams();
 
   const postData = async () => {
-    const url = `http://localhost:4000/projects/add${type}`;
     try {
-      await axios.post(url, {
+      await axios.post(`/add${type}`, {
         id: uniqid(),
         projectTitle: ProjectTitle,
         toDoTitle: ToDoTitle,
@@ -67,7 +65,6 @@ export default function addNewModal({ type, show, setShow }) {
     if (!v2) return setMessage("Description not valid");
 
     postData();
-    setSuccess(true);
   };
 
   const handleClear = () => {
