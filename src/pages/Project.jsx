@@ -4,42 +4,53 @@ import { useParams } from "react-router-dom";
 import "../features/main/main.scss";
 
 import axios from "../apis/database";
-import useAxiosFunction from "../hooks/useAxiosFunction";
-
 import Information from "../components/ui/information";
 import List from "../components/ui/list";
 import AddNew from "../components/buttons/addNew";
 
 export default function singleProject() {
-  //Declare Hooks
-  const [reload, setReload] = useState();
+  //State Hooks
+  const [project, setProject] = useState();
+  const [error, setError] = useState();
+
+  // Param Hooks
   const { ProjectTitle } = useParams();
 
-  const [project, errorMessage, error, isLoading, axiosFetch] = useAxiosFunction();
-
+  // useEffect Hooks
   useEffect(() => {
     fetchData();
   }, [reload]);
 
-  //Functions
-  const fetchData = () => {
-    axiosFetch({
-      axiosInstance: axios,
-      method: "get",
-      url: `/${ProjectTitle}`,
-    });
+  //Axios Function
+  const fetchData = async () => {
+    try {
+      const res = await axios.get(ProjectTitle);
+      setProject(res);
+    } catch (err) {
+      if (err.request.status === 400) {
+        setError("Project Could Not Be Found");
+        return;
+      }
+      if (err.request.status === 404) {
+        setError("Server Is Not Responding At This Time.");
+      }
+    }
   };
 
   return (
     <>
+      {/*Loading Screen*/}
       {isLoading && <p>Loading ...</p>}
 
+      {/*Error Screen*/}
       {!isLoading && error && <p>{error}</p>}
 
+      {/*shows information section of the project*/}
       {!isLoading && !error && project?.type && (
         <Information {...project} items={project.toDos} />
       )}
 
+      {/*shows todo list of project if it exists */}
       {!isLoading && !error && project.toDos?.length > 0 && (
         <>
           <section className="heading">
@@ -49,6 +60,7 @@ export default function singleProject() {
         </>
       )}
 
+      {/*shows message if there are no todos*/}
       {!isLoading && !error && project.toDos?.length === 0 && (
         <>
           <section className="footing">

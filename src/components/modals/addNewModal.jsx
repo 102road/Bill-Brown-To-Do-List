@@ -44,6 +44,10 @@ export default function addNewModal({ type, show, setShow }) {
         setError(true);
         return;
       }
+      if(err.request.status === 401){
+        setMessage('You Do Not Have The Authority To Do This.')
+        return
+      }
       if (err.request.status === 404) {
         setMessage(
           "Server Is Not Responding At This Time, Please Try Again Later"
