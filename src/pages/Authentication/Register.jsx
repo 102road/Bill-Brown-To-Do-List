@@ -4,11 +4,10 @@ import axios from "axios";
 import ReactIsCapsLockActive from "@matsun/reactiscapslockactive";
 
 import "../../features/main/authentication.scss";
+import axios from '../../apis/users';
 
 import Clear from "../../components/buttons/clear";
 import Submit from "../../components/buttons/submit";
-
-const url = "http://localhost:4000/users/signup";
 
 const USER_REGEX = /^[A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#£$%]).{8,24}$/;
@@ -76,7 +75,7 @@ export default function signUp() {
     }
     setIsLoading(true);
     try {
-      const res = await axios.post(url, {
+      const res = await axios.post('/signup', {
         username: username,
         password: password,
       });

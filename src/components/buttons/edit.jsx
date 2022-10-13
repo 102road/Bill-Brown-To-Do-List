@@ -19,9 +19,8 @@ export default function edit({ type, title, description, reload, setReload }) {
           type={type}
           title={title}
           description={description}
+          show={show}
           setShow={setShow}
-          reload={reload}
-          setReload={setReload}
         />
       )}
     </>

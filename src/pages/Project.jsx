@@ -11,15 +11,11 @@ import AddNew from "../components/buttons/addNew";
 export default function singleProject() {
   //State Hooks
   const [project, setProject] = useState();
-  const [error, setError] = useState();
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   // Param Hooks
   const { ProjectTitle } = useParams();
-
-  // useEffect Hooks
-  useEffect(() => {
-    fetchData();
-  }, [reload]);
 
   //Axios Function
   const fetchData = async () => {
@@ -28,11 +24,11 @@ export default function singleProject() {
       setProject(res);
     } catch (err) {
       if (err.request.status === 400) {
-        setError("Project Could Not Be Found");
+        setErrorMessage("Project Could Not Be Found");
         return;
       }
       if (err.request.status === 404) {
-        setError("Server Is Not Responding At This Time.");
+        setErrorMessage("Server Is Not Responding At This Time.");
       }
     }
   };
@@ -54,7 +50,7 @@ export default function singleProject() {
       {!isLoading && !error && project.toDos?.length > 0 && (
         <>
           <section className="heading">
-            <AddNew type="ToDo" reload={reload} setReload={setReload} />
+            <AddNew type="ToDo" />
             <List data={project.toDos} />
           </section>
         </>
@@ -65,7 +61,7 @@ export default function singleProject() {
         <>
           <section className="footing">
             <p className="footing__title">No To Dos</p>
-            <AddNew type="ToDo" reload={reload} setReload={setReload} />
+            <AddNew type="ToDo" />
           </section>
         </>
       )}

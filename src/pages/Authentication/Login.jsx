@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import {Link} from 'react-router-dom';
-import axios from "axios";
 import ReactIsCapsLockActive from "@matsun/reactiscapslockactive";
 
 import "../../features/main/authentication.scss";
+import axios from '../../apis/users';
 
 import Clear from "../../components/buttons/clear";
 import Submit from "../../components/buttons/submit";
-
-const url = "http://localhost:4000/users/login";
 
 export default function Login() {
   // Declaration of states
@@ -38,7 +36,7 @@ export default function Login() {
   const handleSubmit = async () => {
     try {
       setIsLoading(true);
-      const res = await axios.post(url, { username: username, password: password });
+      const res = await axios.post('/login', { username: username, password: password });
         sessionStorage.setItem("token", res.data.authToken);
         setIsLoading(false);
         setSuccess(true);

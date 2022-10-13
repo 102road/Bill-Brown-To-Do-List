@@ -21,7 +21,7 @@ export default function addNewModal({ type, show, setShow }) {
 
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [message, setMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const { ProjectTitle, ToDoTitle } = useParams();
 
@@ -61,8 +61,8 @@ export default function addNewModal({ type, show, setShow }) {
     const v1 = TITLE_REGEX.test(title);
     const v2 = DESCRIPTION_REGEX.test(description);
 
-    if (!v1) return setMessage("Title not valid");
-    if (!v2) return setMessage("Description not valid");
+    if (!v1) return setErrorMessage("Title not valid");
+    if (!v2) return setErrorMessage("Description not valid");
 
     postData();
   };
@@ -145,7 +145,7 @@ export default function addNewModal({ type, show, setShow }) {
               </div>
 
               <div>
-                <p>{message}</p>
+                <p>{errorMessage}</p>
               </div>
 
             </div>
