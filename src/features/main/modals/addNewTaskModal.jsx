@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "../../../apis/database";
 import uniqid from "uniqid";
-
-import useAxiosFunction from "../../../hooks/useAxiosFunction";
-
 import Clear from "../../../components/buttons/clear";
 import Submit from "../../../components/buttons/submit";
 
@@ -16,29 +13,25 @@ export default function addNewTaskModal({ setShow, reload, setReload }) {
 
   const { ProjectTitle, ToDoTitle } = useParams();
 
-  const [response,errorMessage, error, isLoading, axiosFetch] = useAxiosFunction();
-
-  const postData = () => {
-    axiosFetch({
-      axiosInstance: axios,
-      method: "POST",
-      url: `/addTask`,
-      requestConfig: {
+  const postData = async () => {
+    try {
+      await axios.post("/addTask", {
         projectTitle: ProjectTitle,
         toDoTitle: ToDoTitle,
         id: uniqid(),
         description: description,
-      },
-    });
+      });
+    } catch (err) {
+      if (err.request.status === 404)
+        return SetErrorMessage("Server Is Not Responding At This Time.");
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const validate = DESCRIPTION_REGEX.test(description);
     if (!validate)
-      return setMessage(
-        "Description contains invalid characters. [. , ! ?]"
-      );
+      return setMessage("Description contains invalid characters. [. , ! ?]");
     postData();
     setShow(false);
     setReload(!reload);

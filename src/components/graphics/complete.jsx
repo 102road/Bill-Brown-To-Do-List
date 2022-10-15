@@ -7,28 +7,26 @@ import "./complete.scss";
 
 import Tick from "../../assets/icons/tick.svg";
 
-import useAxiosFunction from "../../hooks/useAxiosFunction";
-
 export default function complete({ type, complete, title, id }) {
   const [completeState, setCompleteState] = useState(complete);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const { ProjectTitle, ToDoTitle } = useParams();
-
-  const [response, error, isLoading, axiosFetch] = useAxiosFunction();
-
   const createURL = () => {
     if (type === "Project") return `/${title}/complete`;
     if (type === "ToDo") return `/${ProjectTitle}/${title}/complete`;
     if (type === "Task") return `/${ProjectTitle}/${ToDoTitle}/${id}/complete`;
   };
 
-  const postData = () => {
-    axiosFetch({
-      axiosInstance: axios,
-      method: "PUT",
-      url: createURL(),
-      requestConfig: { complete: completeState },
-    });
+  const postData = async () => {
+    const url = createURL();
+    try {
+      axios.put(url);
+    } catch (err) {
+      if (err.request.status === 400) return setErrorMessage("Action Failed");
+      if (err.request.status === 404)
+        return setErrorMessage("Server Is Not Responding At This Time.");
+    }
   };
 
   useEffect(() => {

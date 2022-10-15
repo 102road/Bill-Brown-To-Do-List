@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "../../apis/database";
 
-import useAxiosFunction from "../../hooks/useAxiosFunction";
-
 import "./button.scss";
 
 import Delete from "../../assets/icons/trash.svg";
@@ -11,9 +9,9 @@ import Delete from "../../assets/icons/trash.svg";
 export default function deleteButton({ type, title, id, reload, setReload }) {
   const [show, setShow] = useState();
 
-  const { ProjectTitle, ToDoTitle } = useParams();
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const [response, error, isLoading, axiosFetch] = useAxiosFunction();
+  const { ProjectTitle, ToDoTitle } = useParams();
 
   const createURL = () => {
     if (type === "Project") return `/${title}/delete`;
@@ -21,12 +19,16 @@ export default function deleteButton({ type, title, id, reload, setReload }) {
     if (type === "Task") return `/${ProjectTitle}/${ToDoTitle}/${id}/delete`;
   };
 
-  const deleteData = () => {
-    axiosFetch({
-      axiosInstance: axios,
-      method: "DELETE",
-      url: createURL(),
-    });
+  const deleteData = async () => {
+    const url = createURL();
+    try {
+      await axios.delete(url);
+    } catch (err) {
+      if (err.request.status === 400)
+        return setErrorMessage(`${type} Could Not Be Deleted At This Time.`);
+      if (err.request.status === 404)
+        return setErrorMessage(`Server Is Not Responding At This Time.`);
+    }
   };
 
   const handleDelete = (e) => {
