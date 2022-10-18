@@ -29,8 +29,6 @@ export default function List({ data }) {
     setIndexEnd(indexEnd - 4);
   };
 
-  console.log(array);
-
   return (
     <>
       {!indexStart ? (

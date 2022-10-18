@@ -14,16 +14,27 @@ export default function projects() {
   const [error, setError] = useState();
   const [errorMessage, setErrorMessage] = useState();
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const res = await axios.get(url);
-      setProjects(res);
+      const res = await axios.get('/projects');
+      setProjects(res.data);
       setIsLoading(false);
     } catch (err) {
       if (err.request.status === 400) {
         setError(true);
         setErrorMessage("There Are No Projects To Show.");
+        setIsLoading(false);
+      }
+      if (err.request.status === 403) {
+        setError(true);
+        setErrorMessage(
+          "You Do Not Have Authorization To Perform This Action."
+        );
         setIsLoading(false);
       }
       if (err.request.status === 404) {
@@ -34,16 +45,12 @@ export default function projects() {
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, [reload]);
-
   return (
     <>
       <article className="projects">
         <nav className="heading">
           <h1 className="heading__title">Projects</h1>
-          <AddNew type="Project" reload={reload} setReload={setReload} />
+          <AddNew type="Project" />
         </nav>
 
         {isLoading && <p>Loading...</p>}
@@ -52,7 +59,7 @@ export default function projects() {
 
         <div>
           {!isLoading && !error && projects?.length > 0 && (
-            <List data={projects} reload={reload} setReload={setReload} />
+            <List data={projects} />
           )}
         </div>
       </article>

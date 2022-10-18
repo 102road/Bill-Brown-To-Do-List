@@ -12,6 +12,7 @@ export default function complete({ type, complete, title, id }) {
   const [errorMessage, setErrorMessage] = useState("");
 
   const { ProjectTitle, ToDoTitle } = useParams();
+
   const createURL = () => {
     if (type === "Project") return `/${title}/complete`;
     if (type === "ToDo") return `/${ProjectTitle}/${title}/complete`;
@@ -21,7 +22,7 @@ export default function complete({ type, complete, title, id }) {
   const postData = async () => {
     const url = createURL();
     try {
-      axios.put(url);
+      axios.delete(url);
     } catch (err) {
       if (err.request.status === 400) return setErrorMessage("Action Failed");
       if (err.request.status === 404)

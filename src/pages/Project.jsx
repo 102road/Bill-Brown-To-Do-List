@@ -12,23 +12,34 @@ export default function singleProject() {
   //State Hooks
   const [project, setProject] = useState();
   const [error, setError] = useState(false);
+
+  const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   // Param Hooks
   const { ProjectTitle } = useParams();
 
+  //useEffect Hooks
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   //Axios Function
   const fetchData = async () => {
     try {
-      const res = await axios.get(ProjectTitle);
+      const res = await axios.get(`/${ProjectTitle}`);
       setProject(res);
     } catch (err) {
       if (err.request.status === 400) {
+        setError(true);
         setErrorMessage("Project Could Not Be Found");
+        setIsLoading(false);
         return;
       }
       if (err.request.status === 404) {
+        setError(true);
         setErrorMessage("Server Is Not Responding At This Time.");
+        setIsLoading(false);
       }
     }
   };

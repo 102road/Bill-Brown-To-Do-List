@@ -7,8 +7,6 @@ import calculatePercentage from "../../utils/calculatePercentage";
 export default function percentageBar({ items }) {
   const [percent, setPercent] = useState();
 
-  console.log(items);
-
   useEffect(() => {
     setPercent(calculatePercentage(items));
   }, []);

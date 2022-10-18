@@ -11,6 +11,7 @@ import PercentageBar from "../graphics/percentageBar";
 export default function listItem({
   type,
   projectTitle,
+  id,
   title,
   description,
   date,
@@ -23,7 +24,6 @@ export default function listItem({
     if (type === "Project") return `/${title}`;
     if (type === "ToDo") return `/${projectTitle}/${title}`;
   };
-  console.log(type);
   return (
     <div className="item">
       <Link to={createURL()}>
@@ -31,7 +31,7 @@ export default function listItem({
           <div className="item__header">
             <div className="item__main">
               <h1 className="item__title">{title}</h1>
-              <Complete complete={complete} />
+              <Complete type={type} complete={complete} title={title} id={id} />
             </div>
 
             <p className="item__description">{description}</p>

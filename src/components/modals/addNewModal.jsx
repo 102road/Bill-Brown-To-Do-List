@@ -153,7 +153,7 @@ export default function addNewModal({ type, show, setShow }) {
         </article>
       )}
       {success && (
-        <artcle className="pop-up">
+        <article className="pop-up">
           <p className="pop-up__message">
             {`${type}`} Has Been Added Successfully
           </p>
@@ -161,7 +161,7 @@ export default function addNewModal({ type, show, setShow }) {
             className="button"
             onClick={() => setShow(false)}
           >{`${type}`}</button>
-        </artcle>
+        </article>
       )}
       {error && (
         <article className="pop-up">

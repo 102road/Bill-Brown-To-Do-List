@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import ReactIsCapsLockActive from "@matsun/reactiscapslockactive";
 
 import "../../features/main/authentication.scss";
