@@ -7,8 +7,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100%;
-    width: 100%;
+    overflow-y: auto;
+    overflow-x: auto ;
 }
 
 .list__item:hover {
@@ -22,18 +22,15 @@
     margin: 2rem;
     cursor: pointer;
     animation: slide-in 1s ease forwards;
-    &--mobile{
-        @extend .icon;
+
+    &--mobile {
+        @extend .arrow;
     }
+
     &--tablet {
-        @extend .icon;
-        display: none;
+        @extend .arrow;
     }
 }
-
-
-
-
 
 @include tablet {
     .list {
@@ -50,7 +47,12 @@
             display: block;
         }
     }
+}
 
-
-
+@include desktop {
+    .list {
+        height: 40rem;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+    }
 }

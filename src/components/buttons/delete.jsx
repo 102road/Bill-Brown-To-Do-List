@@ -6,9 +6,9 @@ import "./button.scss";
 
 import Delete from "../../assets/icons/trash.svg";
 
-export default function deleteButton({ type, title, id, reload, setReload }) {
-  const [show, setShow] = useState();
-
+export default function deleteButton({ type, title, id }) {
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   const { ProjectTitle, ToDoTitle } = useParams();
@@ -23,18 +23,18 @@ export default function deleteButton({ type, title, id, reload, setReload }) {
     const url = createURL();
     try {
       await axios.delete(url);
+      setSuccess(true);
     } catch (err) {
-      if (err.request.status === 400)
-        return setErrorMessage(`${type} Could Not Be Deleted At This Time.`);
-      if (err.request.status === 404)
-        return setErrorMessage(`Server Is Not Responding At This Time.`);
+      if (err.request.status === 400) setError(true);
+      setErrorMessage(`${type} Could Not Be Deleted At This Time.`);
+      if (err.request.status === 404) setError(true);
+      setErrorMessage(`Server Is Not Responding At This Time.`);
     }
   };
 
   const handleDelete = (e) => {
     e.preventDefault();
     deleteData();
-    setReload(!reload);
   };
 
   return (
@@ -42,6 +42,20 @@ export default function deleteButton({ type, title, id, reload, setReload }) {
       <button className="icon" onClick={handleDelete}>
         <img className="icon__delete" src={Delete} />
       </button>
+      {error && (
+        <article className="success">
+          <button className="success__back" onClick={() => setError(false)}>
+            X
+          </button>
+          <p className="success__message">{errorMessage}</p>
+        </article>
+      )}
+      {success && (
+        <article className="success">
+          <button className="success__back">{type}</button>
+          <p className="success__message">{`${type} Has Been Deleted Successfully.`}</p>
+        </article>
+      )}
     </>
   );
 }

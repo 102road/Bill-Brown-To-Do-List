@@ -10,7 +10,7 @@ import AddNew from "../components/buttons/addNew";
 
 export default function singleProject() {
   //State Hooks
-  const [project, setProject] = useState();
+  const [project, setProject] = useState('');
   const [error, setError] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -26,9 +26,11 @@ export default function singleProject() {
 
   //Axios Function
   const fetchData = async () => {
+    setIsLoading(true);
     try {
       const res = await axios.get(`/${ProjectTitle}`);
-      setProject(res);
+      setProject(res.data);
+      setIsLoading(false);
     } catch (err) {
       if (err.request.status === 400) {
         setError(true);
@@ -50,11 +52,11 @@ export default function singleProject() {
       {isLoading && <p>Loading ...</p>}
 
       {/*Error Screen*/}
-      {!isLoading && error && <p>{error}</p>}
+      {!isLoading && error && <p>{errorMessage}</p>}
 
       {/*shows information section of the project*/}
-      {!isLoading && !error && project?.type && (
-        <Information {...project} items={project.toDos} />
+      {!isLoading && !error && project && (
+        <Information {...project} items={project?.toDos} />
       )}
 
       {/*shows todo list of project if it exists */}

@@ -13,7 +13,13 @@ import Submit from "../buttons/submit";
 const TITLE_REGEX = /^[A-z0-9-,.? ]{1,25}$/;
 const DESCRIPTION_REGEX = /^[A-z0-9-,.? ]{1,100}$/;
 
-export default function addNewModal({ type, show, setShow }) {
+export default function addNewModal({
+  type,
+  show,
+  setShow,
+  reload,
+  setReload,
+}) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
@@ -40,13 +46,18 @@ export default function addNewModal({ type, show, setShow }) {
     } catch (err) {
       if (err.request.status === 400) {
         setError(true);
+        setErrorMessage(
+          `${type} Was Not Added To The System, Please Try Again Later.`
+        );
         return;
       }
-      if(err.request.status === 401){
-        setMessage('You Do Not Have The Authority To Do This.')
-        return
+      if (err.request.status === 401) {
+        setError(true);
+        setMessage("You Do Not Have The Authority To Do This.");
+        return;
       }
       if (err.request.status === 404) {
+        setError(true);
         setMessage(
           "Server Is Not Responding At This Time, Please Try Again Later"
         );
@@ -72,6 +83,11 @@ export default function addNewModal({ type, show, setShow }) {
     setDescription("");
     setDate("");
     setTime("");
+  };
+
+  const handleReload = () => {
+    setReload(!reload);
+    setShow(false);
   };
 
   return (
@@ -147,7 +163,6 @@ export default function addNewModal({ type, show, setShow }) {
               <div>
                 <p>{errorMessage}</p>
               </div>
-
             </div>
           </form>
         </article>
@@ -159,7 +174,7 @@ export default function addNewModal({ type, show, setShow }) {
           </p>
           <button
             className="button"
-            onClick={() => setShow(false)}
+            onClick={handleReload}
           >{`${type}`}</button>
         </article>
       )}

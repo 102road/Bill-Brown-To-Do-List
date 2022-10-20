@@ -14,6 +14,8 @@ export default function projects() {
   const [error, setError] = useState();
   const [errorMessage, setErrorMessage] = useState();
 
+  const [reload, setReload] = useState(false);
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -50,14 +52,14 @@ export default function projects() {
       <article className="projects">
         <nav className="heading">
           <h1 className="heading__title">Projects</h1>
-          <AddNew type="Project" />
+          <AddNew type="Project" reload={reload} setReload={setReload} />
         </nav>
 
         {isLoading && <p>Loading...</p>}
 
         {!isLoading && error && <p>{errorMessage}</p>}
 
-        <div>
+        <div className="main">
           {!isLoading && !error && projects?.length > 0 && (
             <List data={projects} />
           )}

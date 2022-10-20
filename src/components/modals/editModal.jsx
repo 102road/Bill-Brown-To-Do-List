@@ -43,12 +43,22 @@ export default function edit({ type, title, description, show, setShow }) {
         time: editTime,
       });
     } catch (err) {
-      if (err.request.status === 401)
-        return setErrorMessage(`${type} Failed To Edit. Please Try Again.`);
-      if (err.request.status === 404)
-        return setErrorMessage(
+      if (err.request.status === 401) {
+        setError(true);
+        setErrorMessage(`${type} Failed To Edit. Please Try Again.`);
+        return;
+      }
+      if (err.request.status === 403) {
+        setError(true);
+        setErrorMessage("You Do Not Have Authority To Do This.");
+      }
+      if (err.request.status === 404) {
+        setError(true);
+        setErrorMessage(
           "Server Is Not Responding At This Time. Please Try Again Later."
         );
+        return;
+      }
     }
   };
 

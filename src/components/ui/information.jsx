@@ -27,13 +27,19 @@ export default function information({
         <section className="header">
           <div className="header__container">
             <h1 className="header__title">{title}</h1>
-            <Complete complete={complete} title={title} />
+            <Complete complete={complete} title={title} type={type} />
           </div>
           <div className="header__main">
             <p className="header__description">{description}</p>
           </div>
           <div className="header__icons">
-            <Edit type={type} title={title} description={description} reload={reload} setReload={setReload}/>
+            <Edit
+              type={type}
+              title={title}
+              description={description}
+              reload={reload}
+              setReload={setReload}
+            />
             <Delete
               type={type}
               title={title}

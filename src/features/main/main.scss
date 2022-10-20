@@ -42,7 +42,7 @@
 .projects {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    height: 100vh;
 
     &__title {
         font-size: 2.5rem;
@@ -63,11 +63,18 @@
     }
 }
 
+.main {
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
 .heading {
+    width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 2rem 0;
+    padding-bottom: 2rem;
+    box-shadow: 0 4px 4px gray;
 
     &__title {
         font-size: 2.5rem;
@@ -89,17 +96,17 @@
 
 @include tablet {
     .projects {
-        height: 100%;
         justify-content: center;
     }
 
-    .header {
+    .heading {
         &__title {
             font-size: 3.5rem;
         }
     }
-    .footing{
-        &__title{
+
+    .footing {
+        &__title {
             font-size: 2.5rem;
         }
     }
@@ -107,7 +114,7 @@
 }
 
 @include desktop {
-    .header {
+    .heading {
         &__title {
             font-size: 5rem;
         }

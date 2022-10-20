@@ -5,7 +5,7 @@ import "./button.scss";
 import Edit from "../../assets/icons/edit.svg";
 import EditModal from "../modals/editModal";
 
-export default function edit({ type, title, description, reload, setReload }) {
+export default function edit({ type, title, description }) {
   const [show, setShow] = useState(false);
 
   return (

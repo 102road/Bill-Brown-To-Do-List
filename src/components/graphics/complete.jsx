@@ -9,7 +9,6 @@ import Tick from "../../assets/icons/tick.svg";
 
 export default function complete({ type, complete, title, id }) {
   const [completeState, setCompleteState] = useState(complete);
-  const [errorMessage, setErrorMessage] = useState("");
 
   const { ProjectTitle, ToDoTitle } = useParams();
 
@@ -22,11 +21,9 @@ export default function complete({ type, complete, title, id }) {
   const postData = async () => {
     const url = createURL();
     try {
-      axios.delete(url);
+      await axios.delete(url);
     } catch (err) {
-      if (err.request.status === 400) return setErrorMessage("Action Failed");
-      if (err.request.status === 404)
-        return setErrorMessage("Server Is Not Responding At This Time.");
+      console.log(err);
     }
   };
 

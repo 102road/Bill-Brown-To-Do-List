@@ -3,6 +3,14 @@
 @use '../../styles/partials/Mixins' as *;
 
 .new {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 25;
+    background-color: $first-background;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
     &__form {
         margin: 1rem;
         @include itemDimensions;
@@ -38,9 +46,19 @@
     }
 }
 
-.message {
-    margin: 1rem 0;
-    color: $first-warning;
+.pop-up{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: $first-background;
+    position: fixed;
+    top: 25;
+    z-index: 1;
+    &__message{
+        font-size: 2rem;
+    }
 }
 
 @include tablet {
