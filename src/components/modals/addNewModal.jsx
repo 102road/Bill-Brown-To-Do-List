@@ -13,13 +13,7 @@ import Submit from "../buttons/submit";
 const TITLE_REGEX = /^[A-z0-9-,.? ]{1,25}$/;
 const DESCRIPTION_REGEX = /^[A-z0-9-,.? ]{1,100}$/;
 
-export default function addNewModal({
-  type,
-  show,
-  setShow,
-  reload,
-  setReload,
-}) {
+export default function addNewModal({ type, show, setShow }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
@@ -86,8 +80,7 @@ export default function addNewModal({
   };
 
   const handleReload = () => {
-    setReload(!reload);
-    setShow(false);
+    window.location.reload();
   };
 
   return (
@@ -172,10 +165,7 @@ export default function addNewModal({
           <p className="pop-up__message">
             {`${type}`} Has Been Added Successfully
           </p>
-          <button
-            className="button"
-            onClick={handleReload}
-          >{`${type}`}</button>
+          <button className="button" onClick={handleReload}>{`${type}`}</button>
         </article>
       )}
       {error && (
@@ -183,7 +173,7 @@ export default function addNewModal({
           <p className="pop-up__message">
             {`${type}`} Was Not Created, Please Try Again.
           </p>
-          <button className="button" onClick={window.location.reload()}>
+          <button className="button" onClick={handleReload}>
             Refresh
           </button>
         </article>

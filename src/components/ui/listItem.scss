@@ -3,13 +3,14 @@
 @use '../../styles/partials/Mixins' as *;
 
 .item {
-    margin: 3rem;
+    margin: 0 3rem;
 
     &__container {
         @include itemDimensions;
         display: flex;
         flex-direction: column;
         padding: 1rem;
+        margin: 1.5rem;
         border: solid 2px;
         justify-content: space-between;
         animation: slide-in 1s ease forwards,
@@ -31,7 +32,7 @@
         font-size: 1.4rem;
     }
 
-    &__graphics{
+    &__graphics {
         margin: 2rem 0;
     }
 

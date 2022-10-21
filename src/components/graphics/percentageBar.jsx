@@ -14,13 +14,15 @@ export default function percentageBar({ items }) {
   return (
     <>
       <div className="progress">
-        <p className="progress-title">Progress</p>
+        <div className="progress__wrapper">
+          <p className="progress__title">Progress</p>
+          <p>{percent}</p>
+        </div>
         <div className="progress__bar">
           <div
             className="progress__bar--percentage"
             style={{ width: `${percent}` }}
           ></div>
-          <p>{percent}</p>
         </div>
       </div>
     </>

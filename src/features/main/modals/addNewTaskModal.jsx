@@ -39,7 +39,7 @@ export default function addNewTaskModal({ setShow, reload, setReload }) {
 
   return (
     <>
-      <form>
+      <form className="task__form">
         <h1>Add New Task</h1>
         <label>Description</label>
         <textarea

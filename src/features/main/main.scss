@@ -73,7 +73,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 2rem;
+    padding: 2rem;
     box-shadow: 0 4px 4px gray;
 
     &__title {
@@ -95,10 +95,7 @@
 
 
 @include tablet {
-    .projects {
-        justify-content: center;
-    }
-
+    
     .heading {
         &__title {
             font-size: 3.5rem;

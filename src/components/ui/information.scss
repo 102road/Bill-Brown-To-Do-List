@@ -7,7 +7,7 @@
     @include flexSpaceBetween;
     flex-direction: column;
     border-bottom: solid 1px black;
-    padding: 1rem;
+    padding: 1rem 1rem 0 1rem;
     width: max(25%, 100%);
 }
 
@@ -58,7 +58,7 @@
 @include tablet {
     .information {
         flex-direction: row;
-        padding: 1rem 0;
+        padding: 0;
     }
 
     .header {

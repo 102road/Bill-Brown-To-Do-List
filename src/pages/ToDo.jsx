@@ -9,7 +9,7 @@ import AddNewTask from "../features/main/buttons/addNewTask";
 
 export default function singleToDo() {
   // state hooks
-  const [toDo, setToDo] = useState();
+  const [toDo, setToDo] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
@@ -17,12 +17,19 @@ export default function singleToDo() {
   // param hook
   const { ProjectTitle, ToDoTitle } = useParams();
 
+  //useEffect Hook
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   // axios function
-  const fetchData = () => {
+  const fetchData = async () => {
     setIsLoading(true);
     try {
-      const res = axios.get(`/${ProjectTitle}/${ToDoTitle}`);
-      setToDo(res);
+      const res = await axios.get(`/${ProjectTitle}/${ToDoTitle}`);
+      setToDo(res.data);
+      setIsLoading(false);
     } catch (err) {
       if (err.request.status === 400) {
         setError(true);
@@ -36,10 +43,6 @@ export default function singleToDo() {
       }
     }
   };
-  // useEffect hook
-  useEffect(() => {
-    fetchData();
-  }, [reload]);
 
   return (
     <>
@@ -50,27 +53,27 @@ export default function singleToDo() {
       {!isLoading && error && <p>{errorMessage}</p>}
 
       {/*information section */}
-      {!isLoading && !error && toDo?.type && (
-        <Information {...toDo} items={toDo.tasks} />
+      {!isLoading && !error && toDo && (
+        <Information {...toDo} items={toDo?.tasks} />
       )}
 
       {/*task list*/}
       {!isLoading && !error && toDo.tasks?.length > 0 && (
         <section className="heading">
-          <AddNewTask reload={reload} setReload={setReload} />
-          <TaskList tasks={toDo.tasks} reload={reload} setReload={setReload} />
+          <AddNewTask />
+          <TaskList tasks={toDo.tasks} />
         </section>
       )}
 
       {/*shows when the todo has no tasks, prompts user to create a new task*/}
-      <section className="footing">
-        {!isLoading && !error && toDo.tasks?.length === 0 && (
-          <>
+      {!isLoading && !error && toDo.tasks?.length === 0 && (
+        <>
+          <section className="footing">
             <p className="footing__title">No Tasks</p>
-            <AddNewTask reload={reload} setReload={setReload} />
-          </>
-        )}
-      </section>
+            <AddNewTask />
+          </section>
+        </>
+      )}
     </>
   );
 }
