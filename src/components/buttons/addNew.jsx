@@ -6,7 +6,7 @@ import Plus from "../../assets/icons/plus.svg";
 
 import AddNewModal from "../modals/addNewModal";
 
-export default function addNew({ type, reload, setReload }) {
+export default function addNew({ type }) {
   const [show, setShow] = useState(false);
 
   return (
@@ -20,8 +20,6 @@ export default function addNew({ type, reload, setReload }) {
           type={type}
           show={show}
           setShow={setShow}
-          reload={reload}
-          setReload={setReload}
         />
       )}
     </>

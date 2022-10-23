@@ -26,6 +26,12 @@
 
     &__icons {
         @include flexSpaceBetween;
+        margin: 1rem 0;
+    }
+    &__button{
+        display: flex;
+        justify-content: center;
+        margin: 1rem 0;
     }
 }
 

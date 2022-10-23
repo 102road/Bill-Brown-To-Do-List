@@ -6,11 +6,10 @@ import "../features/main/main.scss";
 import axios from "../apis/database";
 import Information from "../components/ui/information";
 import List from "../components/ui/list";
-import AddNew from "../components/buttons/addNew";
 
 export default function singleProject() {
   //State Hooks
-  const [project, setProject] = useState('');
+  const [project, setProject] = useState("");
   const [error, setError] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -61,12 +60,7 @@ export default function singleProject() {
 
       {/*shows todo list of project if it exists */}
       {!isLoading && !error && project.toDos?.length > 0 && (
-        <>
-          <section className="heading">
-            <AddNew type="ToDo" />
-            <List data={project.toDos} />
-          </section>
-        </>
+        <List data={project.toDos} />
       )}
 
       {/*shows message if there are no todos*/}
@@ -74,7 +68,6 @@ export default function singleProject() {
         <>
           <section className="footing">
             <p className="footing__title">No To Dos</p>
-            <AddNew type="ToDo" />
           </section>
         </>
       )}

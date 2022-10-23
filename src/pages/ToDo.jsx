@@ -5,7 +5,6 @@ import axios from "../apis/database";
 
 import Information from "../components/ui/information";
 import TaskList from "../components/ui/taskList";
-import AddNewTask from "../features/main/buttons/addNewTask";
 
 export default function singleToDo() {
   // state hooks
@@ -59,8 +58,7 @@ export default function singleToDo() {
 
       {/*task list*/}
       {!isLoading && !error && toDo.tasks?.length > 0 && (
-        <section className="heading">
-          <AddNewTask />
+        <section className="task">
           <TaskList tasks={toDo.tasks} />
         </section>
       )}
@@ -70,7 +68,6 @@ export default function singleToDo() {
         <>
           <section className="footing">
             <p className="footing__title">No Tasks</p>
-            <AddNewTask />
           </section>
         </>
       )}

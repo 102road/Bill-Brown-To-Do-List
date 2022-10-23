@@ -5,7 +5,7 @@ import "../../../components/buttons/button.scss";
 import Plus from "../../../assets/icons/plus.svg";
 import AddNewTaskModal from "../modals/addNewTaskModal";
 
-export default function AddNewTask({ reload, setReload }) {
+export default function AddNewTask() {
   const [show, setShow] = useState(false);
   return (
     <>
@@ -15,8 +15,6 @@ export default function AddNewTask({ reload, setReload }) {
       {show && (
         <AddNewTaskModal
           setShow={setShow}
-          reload={reload}
-          setReload={setReload}
         />
       )}
     </>

@@ -3,10 +3,19 @@
 @use '../../styles/partials/Mixins' as *;
 
 .task {
-    @include itemDimensions;
-    height: fit-content;
-    padding: 1rem;
-    margin: 1rem;
+    &__item {
+        @include itemDimensions;
+        height: fit-content;
+        width: auto;
+        padding: 1rem;
+        margin: 1rem;
+    }
+
+    &__container {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
 
     &__title {
         font-size: 1.5rem;
@@ -17,6 +26,7 @@
         justify-content: space-between;
     }
 }
+
 
 @include tablet {
     .task {
@@ -39,7 +49,7 @@
 
 @include desktop {
     .task {
-        &__footer{
+        &__footer {
             width: 10%;
         }
     }

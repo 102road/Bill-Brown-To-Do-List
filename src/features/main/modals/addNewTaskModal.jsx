@@ -33,7 +33,9 @@ export default function addNewTaskModal({ setShow, reload, setReload }) {
     e.preventDefault();
     const validate = DESCRIPTION_REGEX.test(description);
     if (!validate)
-      return setErrorMessage("Description contains invalid characters. [. , ! ?]");
+      return setErrorMessage(
+        "Description contains invalid characters. [. , ! ?]"
+      );
     postData();
     setShow(false);
     setReload(!reload);
@@ -44,20 +46,26 @@ export default function addNewTaskModal({ setShow, reload, setReload }) {
       <article className="new-task">
         <form className="new-task__form">
           <h1>Add New Task</h1>
-          <label>Description</label>
+          <div className="new-task__wrapper">
+            <label>Description</label>
+            <label>Max: 100</label>
+          </div>
           <textarea
             className="new__input new__input--description"
             value={description}
             type="text"
             onChange={(e) => setDescription(e.target.value)}
             minLength="1"
-            maxLength="250"
+            maxLength="100"
             required
           ></textarea>
-          <div>
+          <div className="buttons">
             <Clear clear={() => setDescription("")} />
             <Submit handleSubmit={handleSubmit} />
           </div>
+          <button className="close" onClick={() => setShow(false)}>
+            Close
+          </button>
         </form>
       </article>
     </>

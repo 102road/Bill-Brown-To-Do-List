@@ -8,7 +8,6 @@ import "./dateInformation.scss";
 export default function dateInformation({ type, date, dateAdded }) {
   const [modifiedDate, setModifiedDate] = useState();
   const [newDate, setNewDate] = useState();
-
   useEffect(() => {
     setNewDate(dateCalculator(date));
     setModifiedDate(format(parseISO(dateAdded), "MM/dd/yyyy"));

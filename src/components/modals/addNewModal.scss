@@ -22,6 +22,10 @@
     &__header{
         margin: 0.75rem 0;
     }
+    &__label{
+        display: flex;
+        justify-content: space-between;
+    }
     &__container{
         display: flex;
         flex-direction: column;

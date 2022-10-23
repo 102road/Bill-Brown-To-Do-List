@@ -111,6 +111,7 @@ export default function addNewModal({ type, show, setShow }) {
 
               <div className="new__label">
                 <label className="new__title">Description</label>
+                <label className="new__title">Max: 100</label>
               </div>
 
               <textarea
@@ -163,7 +164,7 @@ export default function addNewModal({ type, show, setShow }) {
       {success && (
         <article className="pop-up">
           <p className="pop-up__message">
-            {`${type}`} Has Been Added Successfully
+            {`${type}s`} Has Been Added Successfully
           </p>
           <button className="button" onClick={handleReload}>{`${type}`}</button>
         </article>
