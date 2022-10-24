@@ -8,8 +8,9 @@ import "./dateInformation.scss";
 export default function dateInformation({ type, date, dateAdded }) {
   const [modifiedDate, setModifiedDate] = useState();
   const [newDate, setNewDate] = useState();
+
   useEffect(() => {
-    setNewDate(dateCalculator(date));
+    date ? setNewDate(dateCalculator(date)) : setNewDate(null);
     setModifiedDate(format(parseISO(dateAdded), "MM/dd/yyyy"));
   }, []);
 
@@ -19,10 +20,12 @@ export default function dateInformation({ type, date, dateAdded }) {
         <p>Date Added:</p>
         <p className="figure">{modifiedDate}</p>
       </div>
-      <div className="container">
-        <p>{type} due in:</p>
-        <p className="figure">{newDate}</p>
-      </div>
+      {date && (
+        <div className="container">
+          <p>{type} due in:</p>
+          <p className="figure">{newDate}</p>
+        </div>
+      )}
     </>
   );
 }

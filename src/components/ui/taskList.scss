@@ -7,7 +7,6 @@
         @include itemDimensions;
         height: fit-content;
         width: auto;
-        padding: 1rem;
         margin: 1rem;
     }
 
@@ -15,42 +14,19 @@
         width: 100%;
         display: flex;
         justify-content: space-between;
+        align-items: center;
     }
 
     &__title {
         font-size: 1.5rem;
+        padding: 0.5rem;
     }
 
     &__footer {
         display: flex;
         justify-content: space-between;
-    }
-}
-
-
-@include tablet {
-    .task {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        padding: 0.5rem 2rem;
-
-        &__title {
-            width: 85%;
-        }
-
-        &__footer {
-            width: 15%;
-            justify-content: space-around;
-        }
-    }
-
-}
-
-@include desktop {
-    .task {
-        &__footer {
-            width: 10%;
-        }
+        align-items: center;
+        border-top: 1px solid black;
+        padding: 1rem;
     }
 }

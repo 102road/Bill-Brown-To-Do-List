@@ -6,7 +6,6 @@
 .information {
     @include flexSpaceBetween;
     flex-direction: column;
-    border-bottom: solid 1px black;
     padding: 1rem 1rem 0 1rem;
     width: max(25%, 100%);
 }
@@ -35,7 +34,7 @@
     }
 }
 
-.footer {
+.footer {    
     &__details {
         @include flexSpaceBetween;
         justify-content: space-around;
@@ -57,7 +56,9 @@
         padding: 1rem;
     }
 
-
+}
+.hide{
+    display: none;
 }
 
 
@@ -79,14 +80,9 @@
         &__description {
             font-size: 1.5rem;
         }
-
-        &__icons {
-            width: 20%;
-        }
     }
 
     .footer {
-        width: 50%;
         padding: 1rem;
 
         &__container {
@@ -103,5 +99,14 @@
             padding: 1rem 3rem;
         }
 
+    }
+
+    .hide{
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+    }
+    .hide-icon {
+        display: none;
     }
 }
